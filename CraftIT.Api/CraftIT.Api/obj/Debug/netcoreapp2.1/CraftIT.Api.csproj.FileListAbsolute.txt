@@ -1,0 +1,14 @@
+C:\projects\CraftIt\CraftIT.Api\CraftIT.Api\bin\Debug\netcoreapp2.1\CraftIT.Api.deps.json
+C:\projects\CraftIt\CraftIT.Api\CraftIT.Api\bin\Debug\netcoreapp2.1\CraftIT.Api.runtimeconfig.json
+C:\projects\CraftIt\CraftIT.Api\CraftIT.Api\bin\Debug\netcoreapp2.1\CraftIT.Api.runtimeconfig.dev.json
+C:\projects\CraftIt\CraftIT.Api\CraftIT.Api\bin\Debug\netcoreapp2.1\CraftIT.Api.dll
+C:\projects\CraftIt\CraftIT.Api\CraftIT.Api\bin\Debug\netcoreapp2.1\CraftIT.Api.pdb
+C:\projects\CraftIt\CraftIT.Api\CraftIT.Api\obj\Debug\netcoreapp2.1\CraftIT.Api.csprojAssemblyReference.cache
+C:\projects\CraftIt\CraftIT.Api\CraftIT.Api\obj\Debug\netcoreapp2.1\CraftIT.Api.csproj.CoreCompileInputs.cache
+C:\projects\CraftIt\CraftIT.Api\CraftIT.Api\obj\Debug\netcoreapp2.1\CraftIT.Api.RazorAssemblyInfo.cache
+C:\projects\CraftIt\CraftIT.Api\CraftIT.Api\obj\Debug\netcoreapp2.1\CraftIT.Api.RazorAssemblyInfo.cs
+C:\projects\CraftIt\CraftIT.Api\CraftIT.Api\obj\Debug\netcoreapp2.1\CraftIT.Api.AssemblyInfoInputs.cache
+C:\projects\CraftIt\CraftIT.Api\CraftIT.Api\obj\Debug\netcoreapp2.1\CraftIT.Api.AssemblyInfo.cs
+C:\projects\CraftIt\CraftIT.Api\CraftIT.Api\obj\Debug\netcoreapp2.1\CraftIT.Api.RazorTargetAssemblyInfo.cache
+C:\projects\CraftIt\CraftIT.Api\CraftIT.Api\obj\Debug\netcoreapp2.1\CraftIT.Api.dll
+C:\projects\CraftIt\CraftIT.Api\CraftIT.Api\obj\Debug\netcoreapp2.1\CraftIT.Api.pdb
