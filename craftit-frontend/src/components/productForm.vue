@@ -7,6 +7,7 @@
                         <q-input class="q-mb-md" v-model="product.name" label="Name" />
                         <label>Description</label>
                         <q-input class="q-mb-md" v-model="product.description" filled type="textarea" />
+                        <q-input v-model="product.productImage" type="file"/>
                         <q-input class="q-mb-md" v-model="product.timeEstimate" label="Estimated time to completion" />
                         <div class="q-mb-md" id="requirement-input">
                             <label>Requirements</label>
@@ -29,8 +30,11 @@
                             <label>Instructions</label>
                             <div v-if="product.instructions.length > 0" >
                                 <div class="row q-mb-xs" v-for="(instruction, index) in product.instructions" :key="index">
-                                    <div class="col-10">
+                                    <div class="col-8">
                                         <q-input v-model="product.instructions[index].description" label="Instruction" />
+                                    </div>
+                                    <div class="col-2">
+                                        <q-input v-model="product.instructions[index].image" type="file"/>
                                     </div>
                                     <div class="col-2 text-center">
                                         <q-btn round color="red" icon="delete" @click="removeInstruction(index)" />
@@ -74,7 +78,7 @@ export default {
           this.product.requirements.splice(index, 1);
       },
       addInstruction(){
-          this.product.instructions.push({description: ""});
+          this.product.instructions.push({description: "", image : null});
       },
       removeInstruction(index){
           this.product.instructions.splice(index,1);

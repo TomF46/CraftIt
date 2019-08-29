@@ -25,20 +25,10 @@ namespace CraftIt.Api.Services
                 Description = productDto.Description,
                 TimeEstimate = productDto.TimeEstimate,
                 Requirements = JsonConvert.SerializeObject(productDto.Requirements),
-                Instructions = CreateInstructions(productDto)
+                Instructions = CreateInstructions(productDto),
+                ProductImage = productDto.ProductImage != null ? ConvertBase64ToBinary(productDto.ProductImage) : null
             };
             _context.Products.Add(product);
-        }
-
-        private ICollection<Instruction> CreateInstructions(ProductCreationDto productDto)
-        {
-
-            var instructions = productDto.Instructions.Select((x, index) => new Instruction{
-                Description = x.Description,
-                Ordinal = index
-            }).ToList();
-
-            return instructions;
         }
 
         public void DeleteProduct(Product product)
@@ -75,9 +65,28 @@ namespace CraftIt.Api.Services
             productToUpdate.TimeEstimate = product.TimeEstimate;
             productToUpdate.Requirements = JsonConvert.SerializeObject(product.Requirements);
             productToUpdate.Instructions = CreateInstructions(product);
+            productToUpdate.ProductImage =  product.ProductImage != null ? Convert.FromBase64String(product.ProductImage) : null;
             _context.SaveChanges();
 
             return;
+        }
+
+        private ICollection<Instruction> CreateInstructions(ProductCreationDto productDto)
+        {
+
+            var instructions = productDto.Instructions.Select((x, index) => new Instruction{
+                Description = x.Description,
+                Image = x.Image != null ? ConvertBase64ToBinary(x.Image) : null,
+                Ordinal = index
+            }).ToList();
+
+            return instructions;
+        }
+
+        private byte[] ConvertBase64ToBinary(string base64String){
+            //strip out useless metadata that causes conversion to fail
+            if(base64String.Contains(',')) base64String = base64String.Split(',')[1];
+            return Convert.FromBase64String(base64String);
         }
     }
 }

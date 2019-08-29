@@ -33,7 +33,8 @@ namespace CraftIt.Api.Controllers
                 Description = x.Description,
                 TimeEstimate = x.TimeEstimate,
                 Requirements = JsonConvert.DeserializeObject<String[]>(x.Requirements),
-                Instructions = x.Instructions
+                Instructions = convertInstructions(x.Instructions),
+                ProductImage = x.ProductImage != null ? Convert.ToBase64String(x.ProductImage) : null
             });
 
             return Ok(productsDto);
@@ -53,10 +54,29 @@ namespace CraftIt.Api.Controllers
                 Description = product.Description,
                 TimeEstimate = product.TimeEstimate,
                 Requirements = JsonConvert.DeserializeObject<String[]>(product.Requirements),
-                Instructions = product.Instructions
+                Instructions = convertInstructions(product.Instructions),
+                ProductImage = product.ProductImage != null ? Convert.ToBase64String(product.ProductImage) : null
             };
 
             return Ok(productDto);
+        }
+
+        private ICollection<InstructionDto> convertInstructions(ICollection<Instruction> instructions)
+        {
+            var instructionDtos = new List<InstructionDto>();
+
+
+
+            instructions.ToList().ForEach(x => {
+                instructionDtos.Add(new InstructionDto{
+                    Id = x.Id,
+                    Ordinal = x.Ordinal,
+                    Description = x.Description,
+                    Image = x.Image != null ? Convert.ToBase64String(x.Image): null
+                });
+            });
+
+            return instructionDtos;
         }
 
         // POST api/values

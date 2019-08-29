@@ -26,12 +26,31 @@ export default {
         description: "",
         timeEstimate: "",
         requirements: [],
-        instructions: []
+        instructions: [],
+        productImage: ""
       }
     };
   },
   methods:{
-    submit(){
+    async submit(){
+      if(this.product.productImage != null) this.product.productImage = await this.convertImageToBase64(this.product.productImage[0]);
+      for ( const instruction of this.product.instructions){
+        if(instruction.image != null) instruction.image = await this.convertImageToBase64(instruction.image[0]);
+      };
+      this.postToServer();
+    },
+    convertImageToBase64(file){
+      return new Promise((resolve, reject) => {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          resolve(reader.result);
+        };
+        reader.onerror = reject;
+      })
+      
+    },
+    postToServer(){
       this.$axios.post("products", this.product).then(res => {
         alert("Success");
         this.$router.push('/products')
@@ -39,6 +58,7 @@ export default {
         console.log(err);
       })
     }
+
   }
 }
 </script>

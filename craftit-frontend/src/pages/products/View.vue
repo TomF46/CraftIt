@@ -2,9 +2,10 @@
   <q-page>
     <div class="row q-pa-md">
       <div class="col">
-        <div class="productView">
+        <div v-if="product" class="productView">
           <h3 class="text-center">{{product.name}}</h3>
-          <q-card class="my-card">
+          <img v-if="product.productImage" class="product-image" :src="'data:image/jpeg;base64,' + product.productImage">
+          <q-card class="my-card q-mt-xl">
             <q-card-section>
               <p>{{product.description}}</p>
                 <p>Time estimate: {{product.timeEstimate}}</p>
@@ -14,7 +15,7 @@
                 </ul>
                 <p>Instructions:</p>
                 <ol>
-                  <li v-for="(step, index) in product.instructions" :key="index">{{step.description}}</li>
+                  <li v-for="(step, index) in product.instructions" :key="index">{{step.description}} <br> <img v-if="step.image" class="product-image" :src="'data:image/jpeg;base64,' + step.image"></li>
                 </ol>
             </q-card-section>
           </q-card>
@@ -32,6 +33,12 @@
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
+}
+.product-image{
+  max-width: 100%;
+  max-height: 40vh;
+  display: block;
+  margin: auto;
 }
 </style>
 
@@ -53,7 +60,7 @@ export default {
         .get("products/" + this.id)
         .then(res => {
           this.product = res.data;
-          console.log(this.product)
+          console.log(this.product);
         })
         .catch(err => {
           console.log(err);

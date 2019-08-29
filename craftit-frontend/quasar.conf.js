@@ -55,7 +55,8 @@ module.exports = function (ctx) {
         'QForm',
         'QDialog',
         'QAvatar',
-        'QSeparator'
+        'QSeparator',
+        'QUploader'
       ],
 
       directives: [

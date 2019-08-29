@@ -7,5 +7,6 @@ namespace CraftIt.Api.Models
         public int Id { get; set; }
         public string Description { get; set; }
         public int Ordinal {get;set;}
+        public byte[] Image {get;set;}
     }
 }
