@@ -1,7 +1,7 @@
 <template>
     <div class="q-pa-md">
-        <div class="row">
-            <div v-for="(item, index) in items" :key="index" class="col-4">
+        <div class="row items-stretch">
+            <div v-for="(item, index) in items" :key="index" class="col-sm-4 col-xs-12">
                 <q-card class="my-card q-ma-xl">
                     <q-card-section>
                         <div class="text-h6">{{item.name}}</div>
@@ -24,6 +24,7 @@
 </template>
 
 <style>
+
 </style>
 
 <script>

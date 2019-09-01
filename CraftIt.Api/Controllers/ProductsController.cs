@@ -4,12 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using CraftIt.Api.Models;
 using CraftIt.Api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace CraftIt.Api.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class ProductsController : Controller
     {
