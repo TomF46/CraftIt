@@ -27,6 +27,9 @@ namespace CraftIt.Api.Controllers
         [HttpGet]
         public ActionResult Get()
         {
+
+            var name = int.Parse(User.Identity.Name);
+
             var products = _productRepository.GetAllProducts();
 
             var productsDto = products.Select(x => new ProductDto{

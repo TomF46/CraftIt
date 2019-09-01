@@ -19,6 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 using CraftIt.Api.Helpers;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 
 namespace CraftIt.Api
 {
@@ -96,16 +97,17 @@ namespace CraftIt.Api
             services.AddSwaggerGen(c => 
             {
                  c.SwaggerDoc("v1", new Info { Title = "CraftIt Api", Version = "v1" });
-                 c.AddSecurityDefinition("Bearer", new ApiKeyScheme
-                {
-                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
-                    Name = "Authorization",
-                    In = "header",
-                    Type = "apiKey"
-                });
+                 c.AddSecurityDefinition("Bearer",
+                        new ApiKeyScheme { In = "header",
+                        Description = "Please enter into field the word 'Bearer' following by space and JWT", 
+                        Name = "Authorization", Type = "apiKey" });
+                    c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
+                        { "Bearer", Enumerable.Empty<string>() },
+                    });
               });
 
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -5,6 +5,8 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
+using Microsoft.AspNetCore.Http;
+using CraftIt.Api.Helpers;
 
 namespace CraftIt.Api.Services
 {
@@ -12,17 +14,26 @@ namespace CraftIt.Api.Services
     {
 
         private CraftItContext _context;
+        private IHttpContextAccessor _contextAccessor;
 
-        public ProductRepository(CraftItContext context)
+
+        public ProductRepository(CraftItContext context, IHttpContextAccessor contextAccessor)
         {
             _context = context;
+            _contextAccessor = contextAccessor;
         }
 
         public void AddProduct(ProductCreationDto productDto)
         {
+
+            var user = _context.Users.FirstOrDefault(x => x.Id == int.Parse(_contextAccessor.HttpContext.User.Identity.Name));
+
+            if(user == null) throw new AppException("User not found");
+
             var product = new Product{
                 Name = productDto.Name,
                 Description = productDto.Description,
+                AddedBy = user,
                 TimeEstimate = productDto.TimeEstimate,
                 Requirements = JsonConvert.SerializeObject(productDto.Requirements),
                 Instructions = CreateInstructions(productDto),
