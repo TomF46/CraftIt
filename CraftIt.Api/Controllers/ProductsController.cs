@@ -111,6 +111,8 @@ namespace CraftIt.Api.Controllers
 
             if(productToDelete == null) return NotFound();
 
+            if(productToDelete.AddedBy.Id != int.Parse(User.Identity.Name)) return Unauthorized();
+
             _productRepository.DeleteProduct(productToDelete);
 
             if (!_productRepository.Save()) throw new Exception("Failed to delete product");

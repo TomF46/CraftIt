@@ -59,7 +59,7 @@ namespace CraftIt.Api.Services
 
         public Product GetProduct(int id)
         {
-            return _context.Products.Include(x => x.Instructions).FirstOrDefault(x => x.Id == id);
+            return _context.Products.Include(x => x.Instructions).Include(x => x.AddedBy).FirstOrDefault(x => x.Id == id);
         }
 
         public bool Save()
@@ -70,6 +70,8 @@ namespace CraftIt.Api.Services
         public void UpdateProduct(int id, ProductCreationDto product)
         {
             var productToUpdate = GetProduct(id);
+
+            if(productToUpdate.AddedBy.Id != int.Parse(_contextAccessor.HttpContext.User.Identity.Name)) throw new AppException("User does not have permission to update this product");
 
             productToUpdate.Name = product.Name;
             productToUpdate.Description = product.Description;
