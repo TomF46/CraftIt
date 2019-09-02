@@ -1,5 +1,5 @@
 {
-  "FilePath": "c:\\projects\\CraftIt\\CraftIt.Api\\CraftIt.Api.csproj",
+  "FilePath": "c:\\projects\\CraftIt\\Craftit.Api\\Craftit.Api.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-2.1",
     "LanguageVersion": "2.1",
@@ -2874,7 +2874,7 @@
     ],
     "CSharpLanguageVersion": 800
   },
-  "RootNamespace": "CraftIt.Api",
+  "RootNamespace": "Craftit.Api",
   "Documents": [],
   "SerializationFormat": "0.2"
 }

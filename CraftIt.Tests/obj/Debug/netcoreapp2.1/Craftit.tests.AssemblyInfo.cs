@@ -7,10 +7,10 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("CraftIt.Api")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("Craftit.tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
-[assembly: System.Reflection.AssemblyProductAttribute("CraftIt.Api")]
-[assembly: System.Reflection.AssemblyTitleAttribute("CraftIt.Api")]
+[assembly: System.Reflection.AssemblyProductAttribute("Craftit.tests")]
+[assembly: System.Reflection.AssemblyTitleAttribute("Craftit.tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
