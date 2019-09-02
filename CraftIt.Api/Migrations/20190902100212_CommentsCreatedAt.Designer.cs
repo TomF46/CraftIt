@@ -4,14 +4,16 @@ using CraftIt.Api.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CraftIt.Api.Migrations
 {
     [DbContext(typeof(CraftItContext))]
-    partial class CraftItContextModelSnapshot : ModelSnapshot
+    [Migration("20190902100212_CommentsCreatedAt")]
+    partial class CommentsCreatedAt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,7 +114,7 @@ namespace CraftIt.Api.Migrations
             modelBuilder.Entity("CraftIt.Api.Models.Comment", b =>
                 {
                     b.HasOne("CraftIt.Api.Models.Product", "Product")
-                        .WithMany("Comments")
+                        .WithMany()
                         .HasForeignKey("ProductId");
 
                     b.HasOne("CraftIt.Api.Models.User", "User")

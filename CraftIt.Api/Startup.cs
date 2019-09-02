@@ -107,6 +107,7 @@ namespace CraftIt.Api
               });
 
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ICommentService, CommentService>();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
         }
 

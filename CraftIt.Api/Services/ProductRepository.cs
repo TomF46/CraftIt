@@ -49,7 +49,7 @@ namespace CraftIt.Api.Services
 
         public IEnumerable<Product> GetAllProducts()
         {
-            return _context.Products.Include(x => x.Instructions);
+            return _context.Products;
         }
 
         public IEnumerable<Product> GetMostPopularProducts()
@@ -59,7 +59,7 @@ namespace CraftIt.Api.Services
 
         public Product GetProduct(int id)
         {
-            return _context.Products.Include(x => x.Instructions).Include(x => x.AddedBy).FirstOrDefault(x => x.Id == id);
+            return _context.Products.Include(x => x.Instructions).Include(x => x.AddedBy).Include(x => x.Comments).FirstOrDefault(x => x.Id == id);
         }
 
         public bool Save()

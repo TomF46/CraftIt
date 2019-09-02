@@ -37,8 +37,6 @@ namespace CraftIt.Api.Controllers
                 Name = x.Name,
                 Description = x.Description,
                 TimeEstimate = x.TimeEstimate,
-                Requirements = JsonConvert.DeserializeObject<String[]>(x.Requirements),
-                Instructions = convertInstructions(x.Instructions),
                 ProductImage = x.ProductImage != null ? Convert.ToBase64String(x.ProductImage) : null
             });
 
@@ -53,31 +51,46 @@ namespace CraftIt.Api.Controllers
 
             if(product == null) return NotFound();
 
-            var productDto = new ProductDto{
+            var productDto = new ProductDetailDto{
                 Id = product.Id,
                 Name = product.Name,
                 Description = product.Description,
                 TimeEstimate = product.TimeEstimate,
                 Requirements = JsonConvert.DeserializeObject<String[]>(product.Requirements),
                 Instructions = convertInstructions(product.Instructions),
+                Comments = convertComments(product.Comments),
                 ProductImage = product.ProductImage != null ? Convert.ToBase64String(product.ProductImage) : null
             };
 
             return Ok(productDto);
         }
 
+        private ICollection<CommentDto> convertComments(ICollection<Comment> comments)
+        {
+            var commentDtos = new List<CommentDto>();
+
+            comments.ToList().ForEach(x => {
+                commentDtos.Add(new CommentDto{
+                    Id = x.Id,
+                    Username = x.User.Username,
+                    Message = x.Message,
+                    CreatedAt = x.CreatedAt
+                });
+            });
+
+            return commentDtos;
+        }
+
         private ICollection<InstructionDto> convertInstructions(ICollection<Instruction> instructions)
         {
             var instructionDtos = new List<InstructionDto>();
-
-
 
             instructions.ToList().ForEach(x => {
                 instructionDtos.Add(new InstructionDto{
                     Id = x.Id,
                     Ordinal = x.Ordinal,
                     Description = x.Description,
-                    Image = x.Image != null ? Convert.ToBase64String(x.Image): null
+                    Image =  x.Image != null ? Convert.ToBase64String(x.Image): null
                 });
             });
 

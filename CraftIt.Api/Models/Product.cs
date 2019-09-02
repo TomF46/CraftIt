@@ -12,6 +12,8 @@ namespace CraftIt.Api.Models
         public string Requirements {get;set; }
         public string TimeEstimate {get;set;}
         public ICollection<Instruction> Instructions {get;set;}
+        public ICollection<Comment> Comments {get;set;}
+
         public byte[] ProductImage{ get; set; }
     }
 }
