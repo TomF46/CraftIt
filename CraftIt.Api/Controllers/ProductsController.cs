@@ -109,9 +109,9 @@ namespace CraftIt.Api.Controllers
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody] ProductCreationDto product, int id)
+        public IActionResult Put([FromBody] ProductUpdateDto product)
         {
-            _productRepository.UpdateProduct(id, product);
+            _productRepository.UpdateProduct(product);
 
             if (!_productRepository.Save()) throw new Exception("Failed to update product");
 

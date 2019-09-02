@@ -36,7 +36,7 @@ namespace CraftIt.Api.Services
                 AddedBy = user,
                 TimeEstimate = productDto.TimeEstimate,
                 Requirements = JsonConvert.SerializeObject(productDto.Requirements),
-                Instructions = CreateInstructions(productDto),
+                Instructions = CreateInstructions(productDto.Instructions),
                 ProductImage = productDto.ProductImage != null ? ConvertBase64ToBinary(productDto.ProductImage) : null
             };
             _context.Products.Add(product);
@@ -67,9 +67,9 @@ namespace CraftIt.Api.Services
             return (_context.SaveChanges() >= 0);
         }
 
-        public void UpdateProduct(int id, ProductCreationDto product)
+        public void UpdateProduct(ProductUpdateDto product)
         {
-            var productToUpdate = GetProduct(id);
+            var productToUpdate = GetProduct(product.Id);
 
             if(productToUpdate.AddedBy.Id != int.Parse(_contextAccessor.HttpContext.User.Identity.Name)) throw new AppException("User does not have permission to update this product");
 
@@ -77,17 +77,17 @@ namespace CraftIt.Api.Services
             productToUpdate.Description = product.Description;
             productToUpdate.TimeEstimate = product.TimeEstimate;
             productToUpdate.Requirements = JsonConvert.SerializeObject(product.Requirements);
-            productToUpdate.Instructions = CreateInstructions(product);
+            productToUpdate.Instructions = CreateInstructions(product.Instructions);
             productToUpdate.ProductImage =  product.ProductImage != null ? Convert.FromBase64String(product.ProductImage) : null;
             _context.SaveChanges();
 
             return;
         }
 
-        private ICollection<Instruction> CreateInstructions(ProductCreationDto productDto)
+        private ICollection<Instruction> CreateInstructions(ICollection<InstructionCreationDto> instructionDtos)
         {
 
-            var instructions = productDto.Instructions.Select((x, index) => new Instruction{
+            var instructions = instructionDtos.Select((x, index) => new Instruction{
                 Description = x.Description,
                 Image = x.Image != null ? ConvertBase64ToBinary(x.Image) : null,
                 Ordinal = index

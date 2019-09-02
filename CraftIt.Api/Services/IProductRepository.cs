@@ -9,7 +9,7 @@ namespace CraftIt.Api.Services
         Product GetProduct(int id);
         void AddProduct(ProductCreationDto product);
         void DeleteProduct(Product product);
-        void UpdateProduct(int id, ProductCreationDto product);
+        void UpdateProduct(ProductUpdateDto product);
         bool Save();
     }
 }
