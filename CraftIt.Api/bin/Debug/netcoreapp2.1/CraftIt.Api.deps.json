@@ -22,7 +22,7 @@
   },
   "targets": {
     ".NETCoreApp,Version=v2.1": {
-      "Craftit.Api/1.0.0": {
+      "CraftIt.Api/1.0.0": {
         "dependencies": {
           "AutoMapper": "9.0.0",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "7.0.0",
@@ -33,10 +33,10 @@
           "Swashbuckle.AspNetCore.Swagger": "4.0.1"
         },
         "runtime": {
-          "Craftit.Api.dll": {}
+          "CraftIt.Api.dll": {}
         },
         "compile": {
-          "Craftit.Api.dll": {}
+          "CraftIt.Api.dll": {}
         }
       },
       "AutoMapper/9.0.0": {
@@ -3249,7 +3249,7 @@
     }
   },
   "libraries": {
-    "Craftit.Api/1.0.0": {
+    "CraftIt.Api/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

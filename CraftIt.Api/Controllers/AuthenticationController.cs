@@ -57,8 +57,7 @@ namespace WebApi.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-            // return basic user info (without password) and token to store client side
-            return Ok(new {
+            return Ok(new AuthenticationResponse(){
                 Id = user.Id,
                 Username = user.Username,
                 FirstName = user.FirstName,
@@ -71,18 +70,15 @@ namespace WebApi.Controllers
         [HttpPost("register")]
         public IActionResult Register([FromBody]UserRegistrationDto userDto)
         {
-            // map dto to entity
             var user = _mapper.Map<User>(userDto);
 
             try 
             {
-                // save 
                 _userService.Create(user, userDto.Password);
                 return Ok();
             } 
             catch(AppException ex)
             {
-                // return error message if there was an exception
                 return BadRequest(new { message = ex.Message });
             }
         }

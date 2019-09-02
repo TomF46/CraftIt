@@ -63,19 +63,16 @@ namespace WebApi.Controllers
         {
             if(id != int.Parse(User.Identity.Name)) return Unauthorized();
             
-            // map dto to entity and set id
             var user = _mapper.Map<User>(userUpdateDto);
             user.Id = id;
 
             try 
             {
-                // save 
                 _userService.Update(user, userUpdateDto.Password);
                 return Ok();
             } 
             catch(AppException ex)
             {
-                // return error message if there was an exception
                 return BadRequest(new { message = ex.Message });
             }
         }
