@@ -14,26 +14,22 @@ namespace CraftIt.Api.Services
     {
 
         private CraftItContext _context;
-        private IHttpContextAccessor _contextAccessor;
 
 
-        public ProductRepository(CraftItContext context, IHttpContextAccessor contextAccessor)
+        public ProductRepository(CraftItContext context)
         {
             _context = context;
-            _contextAccessor = contextAccessor;
         }
 
-        public void AddProduct(ProductCreationDto productDto)
+        public void AddProduct(ProductCreationDto productDto, User creator)
         {
 
-            var user = _context.Users.FirstOrDefault(x => x.Id == int.Parse(_contextAccessor.HttpContext.User.Identity.Name));
-
-            if(user == null) throw new AppException("User not found");
+            if(creator == null) throw new AppException("User not found");
 
             var product = new Product{
                 Name = productDto.Name,
                 Description = productDto.Description,
-                AddedBy = user,
+                AddedBy = creator,
                 TimeEstimate = productDto.TimeEstimate,
                 Requirements = JsonConvert.SerializeObject(productDto.Requirements),
                 Instructions = CreateInstructions(productDto.Instructions),
@@ -71,8 +67,6 @@ namespace CraftIt.Api.Services
         {
             var productToUpdate = GetProduct(product.Id);
 
-            if(productToUpdate.AddedBy.Id != int.Parse(_contextAccessor.HttpContext.User.Identity.Name)) throw new AppException("User does not have permission to update this product");
-
             //Remove instructions first as they get orphaned and re added with updated data in next step
             _context.Instructions.RemoveRange(productToUpdate.Instructions);
 
@@ -83,7 +77,6 @@ namespace CraftIt.Api.Services
             productToUpdate.Instructions = CreateInstructions(product.Instructions);
             productToUpdate.ProductImage =  product.ProductImage != null ? Convert.FromBase64String(product.ProductImage) : null;
             _context.SaveChanges();
-
 
             return;
         }

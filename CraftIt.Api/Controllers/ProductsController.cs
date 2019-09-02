@@ -17,10 +17,12 @@ namespace CraftIt.Api.Controllers
     {
 
         private readonly IProductRepository _productRepository;
+        private readonly IUserService _userService;
 
-        public ProductsController(IProductRepository productRepository)
+        public ProductsController(IProductRepository productRepository, IUserService userService)
         {
             _productRepository = productRepository;
+            _userService = userService;
         }
 
         // GET api/values
@@ -101,7 +103,11 @@ namespace CraftIt.Api.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] ProductCreationDto product)
         {
-            _productRepository.AddProduct(product);
+            var user = _userService.GetById(int.Parse(User.Identity.Name));
+
+            if(user == null) return Unauthorized();
+
+            _productRepository.AddProduct(product, user);
 
             if (!_productRepository.Save()) throw new Exception("Failed to create product");
 
@@ -111,6 +117,12 @@ namespace CraftIt.Api.Controllers
         [HttpPut]
         public IActionResult Put([FromBody] ProductUpdateDto product)
         {
+            var productToUpdate = _productRepository.GetProduct(product.Id);
+
+            if(productToUpdate == null) return NotFound();
+
+            if(productToUpdate.AddedBy.Id != int.Parse(User.Identity.Name)) return Unauthorized();
+
             _productRepository.UpdateProduct(product);
 
             if (!_productRepository.Save()) throw new Exception("Failed to update product");
