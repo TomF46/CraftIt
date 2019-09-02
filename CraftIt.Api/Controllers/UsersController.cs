@@ -41,6 +41,15 @@ namespace WebApi.Controllers
             return Ok(userDtos);
         }
 
+        [HttpGet] 
+        [Route("Me")]
+        public IActionResult Me(){
+            var me = int.Parse(User.Identity.Name);
+            var user =  _userService.GetById(me);
+            var userDto = _mapper.Map<UserDto>(user);
+            return Ok(userDto);
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -50,16 +59,16 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody]UserDto userDto)
+        public IActionResult Update(int id, [FromBody]UserUpdateDto userUpdateDto)
         {
             // map dto to entity and set id
-            var user = _mapper.Map<User>(userDto);
+            var user = _mapper.Map<User>(userUpdateDto);
             user.Id = id;
 
             try 
             {
                 // save 
-                _userService.Update(user, userDto.Password);
+                _userService.Update(user, userUpdateDto.Password);
                 return Ok();
             } 
             catch(AppException ex)

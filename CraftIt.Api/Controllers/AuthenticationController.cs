@@ -36,9 +36,9 @@ namespace WebApi.Controllers
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody]UserDto userDto)
+        public IActionResult Authenticate([FromBody]UserLoginDto userLoginDto)
         {
-            var user = _userService.Authenticate(userDto.Username, userDto.Password);
+            var user = _userService.Authenticate(userLoginDto.Username, userLoginDto.Password);
 
             if (user == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
@@ -69,7 +69,7 @@ namespace WebApi.Controllers
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public IActionResult Register([FromBody]UserDto userDto)
+        public IActionResult Register([FromBody]UserRegistrationDto userDto)
         {
             // map dto to entity
             var user = _mapper.Map<User>(userDto);
