@@ -73,6 +73,9 @@ namespace CraftIt.Api.Services
 
             if(productToUpdate.AddedBy.Id != int.Parse(_contextAccessor.HttpContext.User.Identity.Name)) throw new AppException("User does not have permission to update this product");
 
+            //Remove instructions first as they get orphaned and re added with updated data in next step
+            _context.Instructions.RemoveRange(productToUpdate.Instructions);
+
             productToUpdate.Name = product.Name;
             productToUpdate.Description = product.Description;
             productToUpdate.TimeEstimate = product.TimeEstimate;
@@ -80,6 +83,7 @@ namespace CraftIt.Api.Services
             productToUpdate.Instructions = CreateInstructions(product.Instructions);
             productToUpdate.ProductImage =  product.ProductImage != null ? Convert.FromBase64String(product.ProductImage) : null;
             _context.SaveChanges();
+
 
             return;
         }
