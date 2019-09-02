@@ -10,17 +10,22 @@ namespace CraftIt.Api.Services
     public class CommentService : ICommentService
     {
         private CraftItContext _context;
-        private IHttpContextAccessor _contextAccessor;
 
-
-        public CommentService(CraftItContext context, IHttpContextAccessor contextAccessor)
+        public CommentService(CraftItContext context)
         {
             _context = context;
-            _contextAccessor = contextAccessor;
         }
-        public void AddComment(CommentCreationDto comment)
+
+        public Comment GetComment(int id){
+            var comment = _context.Comments.FirstOrDefault(x => x.Id == id);
+
+            if(comment == null) throw new AppException("Comment not found");
+
+            return comment;
+        }
+
+        public void AddComment(CommentCreationDto comment, User user)
         {
-            var user = _context.Users.FirstOrDefault(x => x.Id == int.Parse(_contextAccessor.HttpContext.User.Identity.Name));
 
             if(user == null) throw new AppException("User not found");
 
@@ -44,8 +49,6 @@ namespace CraftIt.Api.Services
 
             if(comment == null) throw new AppException("Comment not found");
 
-            if(comment.User.Id != int.Parse(_contextAccessor.HttpContext.User.Identity.Name)) throw new AppException("User does not have permission to delete this comment");
-
             _context.Comments.Remove(comment);
         }
 
@@ -59,8 +62,6 @@ namespace CraftIt.Api.Services
             var commentToUpdate = _context.Comments.FirstOrDefault(x => x.Id == comment.CommentId);
 
             if(commentToUpdate == null) throw new AppException("Comment not found");
-
-            if(commentToUpdate.User.Id != int.Parse(_contextAccessor.HttpContext.User.Identity.Name)) throw new AppException("User does not have permission to update this comment");
 
             commentToUpdate.Message = comment.Message;
             Save();

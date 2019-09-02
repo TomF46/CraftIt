@@ -4,7 +4,8 @@ namespace CraftIt.Api.Services
 {
     public interface ICommentService
     {
-        void AddComment(CommentCreationDto comment);
+        Comment GetComment(int id);
+        void AddComment(CommentCreationDto comment, User user);
         void DeleteComment(int id);
         void UpdateComment(CommentUpdateDto comment);
         bool Save();
