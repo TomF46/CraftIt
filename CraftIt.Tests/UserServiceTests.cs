@@ -78,7 +78,7 @@ namespace Tests
         [Test]
         public void CanGetUser(){
             var user = new User{
-                Id = 10,
+                Id = 4,
                 FirstName = "Test",
                 LastName = "User",
                 Username= "Test1User",
@@ -88,9 +88,33 @@ namespace Tests
 
             _context.Users.Add(user);
 
-            var fromDb = _userService.GetById(10);
+            var fromDb = _userService.GetById(4);
 
             Assert.AreEqual(fromDb.Username, "Test1User");
+        }
+
+        [Test]
+        public void CanDeleteUser(){
+            var user = new User{
+                Id = 5,
+                FirstName = "Test",
+                LastName = "User",
+                Username= "Test110User",
+                PasswordHash = null,
+                PasswordSalt = null
+            };
+
+            _context.Users.Add(user);
+
+            var exists1 = _userService.GetById(5);
+
+            Assert.IsNotNull(exists1);
+
+            _userService.Delete(5);
+
+            var exists2 = _userService.GetById(5);
+
+            Assert.IsNull(exists2);
         }
     }
 }

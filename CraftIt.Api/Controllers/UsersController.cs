@@ -61,6 +61,8 @@ namespace WebApi.Controllers
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody]UserUpdateDto userUpdateDto)
         {
+            if(id != int.Parse(User.Identity.Name)) return Unauthorized();
+            
             // map dto to entity and set id
             var user = _mapper.Map<User>(userUpdateDto);
             user.Id = id;
@@ -81,6 +83,9 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
+
+            if(id != int.Parse(User.Identity.Name)) return Unauthorized();
+
             _userService.Delete(id);
             return Ok();
         }
