@@ -74,5 +74,23 @@ namespace Tests
             Assert.IsNull(authenticatedUser);
             
         }
+
+        [Test]
+        public void CanGetUser(){
+            var user = new User{
+                Id = 10,
+                FirstName = "Test",
+                LastName = "User",
+                Username= "Test1User",
+                PasswordHash = null,
+                PasswordSalt = null
+            };
+
+            _context.Users.Add(user);
+
+            var fromDb = _userService.GetById(10);
+
+            Assert.AreEqual(fromDb.Username, "Test1User");
+        }
     }
 }
