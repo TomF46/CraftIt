@@ -14,3 +14,8 @@ This project is created using (but not limited to) the following technologies an
 * Dependency injection
 * Nuget package manager for 3rd party packages
 * NUnit testing framework
+
+
+This can be ran locally by downloading the files, running Nuget restore, updating the connection string and secret (generate your own secret a placeholder will be in place in downloaded files) in appsettings.json , and then running the migrations to create the database.
+
+Swagger documentation can be viewed when the project is running by going to https://localhost:{port}/swagger

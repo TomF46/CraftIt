@@ -1,0 +1,6 @@
+I'm aware of the issues with how images are stored in this application, because of this being an example of c# code using .Net with no plan of deploying this somewhere i decided against using the method i have regularly used.
+
+This method is to store uploaded images in an AWS s3 bucket and then store references to these files in the database, then when an image is requested i can use this reference to create a pre signed url which is returned to the user.
+
+
+I'am also aware of the issue with storing Db information and secrets in github and would instead use token injection to inject these strings in a real world setting.
