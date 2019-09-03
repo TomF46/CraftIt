@@ -18,8 +18,15 @@ namespace Tests
         }
 
         [SetUp]
-        public void Setup()
-        {
+        public void SetUp(){
+            _context.Users.RemoveRange(_context.Users);
+            _context.SaveChanges();
+        }
+
+        [TearDown]
+        public void dispose(){
+            _context.Users.RemoveRange(_context.Users);
+            _context.SaveChanges();
         }
 
         [Test]
@@ -43,7 +50,7 @@ namespace Tests
         public void UserCanRegisterThenLoginSuccesfully()
         {
             var user = new User{
-                Id = 2,
+                Id = 1,
                 FirstName = "Test",
                 LastName = "User2",
                 Username = "TestUser2"
@@ -61,7 +68,7 @@ namespace Tests
         public void UserCanNotAuthenticateWithIncorrectPassword()
         {
             var user = new User{
-                Id = 3,
+                Id = 1,
                 FirstName = "Test",
                 LastName = "User3",
                 Username = "TestUser3"
@@ -78,7 +85,7 @@ namespace Tests
         [Test]
         public void CanGetUser(){
             var user = new User{
-                Id = 4,
+                Id = 1,
                 FirstName = "Test",
                 LastName = "User",
                 Username= "Test1User",
@@ -88,7 +95,7 @@ namespace Tests
 
             _context.Users.Add(user);
 
-            var fromDb = _userService.GetById(4);
+            var fromDb = _userService.GetById(1);
 
             Assert.AreEqual(fromDb.Username, "Test1User");
         }
@@ -96,7 +103,7 @@ namespace Tests
         [Test]
         public void CanDeleteUser(){
             var user = new User{
-                Id = 5,
+                Id = 1,
                 FirstName = "Test",
                 LastName = "User",
                 Username= "Test110User",
@@ -106,13 +113,13 @@ namespace Tests
 
             _context.Users.Add(user);
 
-            var exists1 = _userService.GetById(5);
+            var exists1 = _userService.GetById(1);
 
             Assert.IsNotNull(exists1);
 
-            _userService.Delete(5);
+            _userService.Delete(1);
 
-            var exists2 = _userService.GetById(5);
+            var exists2 = _userService.GetById(1);
 
             Assert.IsNull(exists2);
         }

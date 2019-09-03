@@ -26,11 +26,9 @@ namespace CraftIt.Api.Services
             if (user == null)
                 return null;
 
-            // check if password is correct
             if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
                 return null;
 
-            // authentication successful
             return user;
         }
 
@@ -46,12 +44,9 @@ namespace CraftIt.Api.Services
 
         public User Create(User user, string password)
         {
-            // validation
-            if (string.IsNullOrWhiteSpace(password))
-                throw new AppException("Password is required");
+            if (string.IsNullOrWhiteSpace(password)) throw new AppException("Password is required");
 
-            if (_context.Users.Any(x => x.Username == user.Username))
-                throw new AppException("Username \"" + user.Username + "\" is already taken");
+            if (_context.Users.Any(x => x.Username == user.Username)) throw new AppException($"Username {user.Username} is already taken");
 
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
@@ -69,22 +64,17 @@ namespace CraftIt.Api.Services
         {
             var user = _context.Users.Find(userParam.Id);
 
-            if (user == null)
-                throw new AppException("User not found");
+            if (user == null) throw new AppException("User not found");
 
             if (userParam.Username != user.Username)
             {
-                // username has changed so check if the new username is already taken
-                if (_context.Users.Any(x => x.Username == userParam.Username))
-                    throw new AppException("Username " + userParam.Username + " is already taken");
+                if (_context.Users.Any(x => x.Username == userParam.Username)) throw new AppException($"Username {userParam.Username} is already taken");
             }
 
-            // update user properties
             user.FirstName = userParam.FirstName;
             user.LastName = userParam.LastName;
             user.Username = userParam.Username;
 
-            // update password if it was entered
             if (!string.IsNullOrWhiteSpace(password))
             {
                 byte[] passwordHash, passwordSalt;
@@ -107,8 +97,6 @@ namespace CraftIt.Api.Services
                 _context.SaveChanges();
             }
         }
-
-        // private helper methods
 
         private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
