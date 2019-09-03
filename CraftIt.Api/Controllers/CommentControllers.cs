@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CraftIt.Api.Models;
 using CraftIt.Api.Services;
+using CraftIt.Api.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -37,11 +38,16 @@ namespace CraftIt.Api.Controllers
 
             if(user == null) return Unauthorized();
 
-            _commentService.AddComment(comment, user);
+            try 
+            {
+                _commentService.AddComment(comment, user);
+                return Ok();
+            } 
+            catch(AppException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
 
-            if(!_commentService.Save()) throw new Exception("Failed to post new comment");
-
-            return Ok();
         }
 
         [HttpPut]
@@ -54,11 +60,16 @@ namespace CraftIt.Api.Controllers
 
             if(commentInDb.User.Id != int.Parse(User.Identity.Name)) return Unauthorized();
 
-            _commentService.UpdateComment(comment);
+            try 
+            {
+                _commentService.UpdateComment(comment);
+                return Ok();
+            } 
+            catch(AppException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
 
-            if(!_commentService.Save()) throw new Exception("Failed to update comment");
-
-            return Ok();
         }
 
         [HttpDelete]
@@ -70,11 +81,15 @@ namespace CraftIt.Api.Controllers
 
             if(commentInDb.User.Id != int.Parse(User.Identity.Name)) return Unauthorized();
 
-            _commentService.DeleteComment(id);
-
-            if(!_commentService.Save()) throw new Exception("Failed to delete comment");
-
-            return Ok();
+            try 
+            {
+                _commentService.DeleteComment(id);
+                return Ok();
+            } 
+            catch(AppException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
     }
 }
