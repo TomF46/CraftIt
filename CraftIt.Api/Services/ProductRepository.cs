@@ -48,11 +48,6 @@ namespace CraftIt.Api.Services
             return _context.Products;
         }
 
-        public IEnumerable<Product> GetMostPopularProducts()
-        {
-            throw new System.NotImplementedException();
-        }
-
         public Product GetProduct(int id)
         {
             return _context.Products.Include(x => x.Instructions).Include(x => x.AddedBy).Include(x => x.Comments).FirstOrDefault(x => x.Id == id);

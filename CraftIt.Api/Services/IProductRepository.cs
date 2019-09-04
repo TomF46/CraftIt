@@ -5,7 +5,6 @@ namespace CraftIt.Api.Services
     public interface IProductRepository
     {
         IEnumerable<Product> GetAllProducts();
-        IEnumerable<Product> GetMostPopularProducts();
         Product GetProduct(int id);
         void AddProduct(ProductCreationDto product, User Creator);
         void DeleteProduct(Product product);
