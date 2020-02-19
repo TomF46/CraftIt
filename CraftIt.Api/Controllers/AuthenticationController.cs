@@ -18,7 +18,7 @@ namespace WebApi.Controllers
     /// <summary>Class <c>AuthenticationController</c> API controller for commands related to Authentication e.g.null Logging in and out</summary>
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class AuthenticationController : ControllerBase
     {
         private IUserService _userService;
@@ -35,6 +35,7 @@ namespace WebApi.Controllers
             _appSettings = appSettings.Value;
         }
 
+        /// <summary>Takes user login details and returns Authentication response including bearer token if valid, else return error</summary>
         [AllowAnonymous]
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody]UserLoginDto userLoginDto)
@@ -67,6 +68,7 @@ namespace WebApi.Controllers
             });
         }
 
+        /// <summary>Takes user registration details and return 200 response if valid, else return error message</summary>
         [AllowAnonymous]
         [HttpPost("register")]
         public IActionResult Register([FromBody]UserRegistrationDto userDto)

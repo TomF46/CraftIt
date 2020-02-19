@@ -26,6 +26,7 @@ namespace CraftIt.Api.Controllers
             _userService = userService;
         }
 
+        /// <summary>Returns a list of all products.</summary>
         [HttpGet]
         public ActionResult Get()
         {
@@ -45,6 +46,7 @@ namespace CraftIt.Api.Controllers
             return Ok(productsDto);
         }
 
+        /// <summary>Takes an product id and returns matching product if it exists else return error message</summary>
         [HttpGet("{id}")]
         public ActionResult Get(int id)
         {
@@ -98,7 +100,7 @@ namespace CraftIt.Api.Controllers
             return instructionDtos;
         }
 
-        // POST api/values
+        /// <summary>Takes a product and add to database if its valid else return error message</summary>
         [HttpPost]
         public IActionResult Post([FromBody] ProductCreationDto product)
         {
@@ -113,6 +115,7 @@ namespace CraftIt.Api.Controllers
             return Ok();
         }
 
+        /// <summary>Takes an edited product and update the product in the database if its valid else return error message</summary>
         [HttpPut]
         public IActionResult Put([FromBody] ProductUpdateDto product)
         {
@@ -129,6 +132,7 @@ namespace CraftIt.Api.Controllers
             return Ok();
         }
 
+        /// <summary>Takes a product id and remove the product with that id from the database if its valid return 200 else return error message</summary>
         [HttpDelete]
         public IActionResult Delete(int id){
             var productToDelete = _productRepository.GetProduct(id);

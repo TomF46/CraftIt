@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 
 namespace CraftIt.Api.Controllers
 {
+    /// <summary>Class <c>CommentController</c> API controller for commands related to comments</summary>
     [Route("api/[controller]")]
     [Authorize]
     [ApiController]
@@ -30,7 +31,7 @@ namespace CraftIt.Api.Controllers
         }
 
 
-        // POST api/values
+        /// <summary>Takes a Comment and adds to database, if succesful return 200 else return error message</summary>
         [HttpPost]
         public IActionResult Post([FromBody] CommentCreationDto comment)
         {
@@ -50,6 +51,7 @@ namespace CraftIt.Api.Controllers
 
         }
 
+        /// <summary>Takes an edited comment and update it in the database, if succesful return 200 else return error message</summary>
         [HttpPut]
         public IActionResult Put([FromBody] CommentUpdateDto comment)
         {
@@ -72,6 +74,7 @@ namespace CraftIt.Api.Controllers
 
         }
 
+        /// <summary>Takes an comment id and delete matching comment in database, if succesful return 200 else return error message</summary>
         [HttpDelete]
         public IActionResult Delete(int id){
 

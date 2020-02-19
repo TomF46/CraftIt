@@ -17,7 +17,7 @@ namespace WebApi.Controllers
     /// <summary>Class <c>UserController</c> API controller for commands related to user management</summary>
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
         private IUserService _userService;
@@ -34,6 +34,7 @@ namespace WebApi.Controllers
             _appSettings = appSettings.Value;
         }
 
+        /// <summary>Returns a list of all users</summary>
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -42,6 +43,7 @@ namespace WebApi.Controllers
             return Ok(userDtos);
         }
 
+        /// <summary>Returns the user that is currently logged in.</summary>
         [HttpGet] 
         [Route("Me")]
         public IActionResult Me(){
@@ -51,6 +53,7 @@ namespace WebApi.Controllers
             return Ok(userDto);
         }
 
+        /// <summary>Takes a user id and return that user if it exists else return error message</summary>
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -58,7 +61,8 @@ namespace WebApi.Controllers
             var userDto = _mapper.Map<UserDto>(user);
             return Ok(userDto);
         }
-
+        
+        /// <summary>Takes a edited user and updates the matching user in the databse if valid else return error.</summary>
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody]UserUpdateDto userUpdateDto)
         {
@@ -78,6 +82,8 @@ namespace WebApi.Controllers
             }
         }
 
+
+        /// <summary>Takes an user id and removes the user with that id from the databse if it exists else return error, user id must match logged in user id.</summary>
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
