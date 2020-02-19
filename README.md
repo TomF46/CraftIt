@@ -1,6 +1,6 @@
 # CraftIt Api
 
-This is an example api project for a hypothetical social crafting site, which allows users to upload and browse craft recipes with step by step instructions with images.
+This is an example api project for a hypothetical social craft site, which allows users to upload and browse craft recipes with step by step instructions with images.
 
 This is a .NET Core 2.1 api which also comes with a testing project which contains unit tests using NUnit to test the functionality of implemeted code in controllers and services.
 

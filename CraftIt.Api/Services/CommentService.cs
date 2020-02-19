@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace CraftIt.Api.Services
 {
+    /// <summary>Class <c>CommentService</c>Class used to implement methods in the ICommentService interface</summary>
     public class CommentService : ICommentService
     {
         private CraftItContext _context;

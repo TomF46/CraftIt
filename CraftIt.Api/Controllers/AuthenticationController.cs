@@ -15,6 +15,7 @@ using CraftIt.Api.Services;
 
 namespace WebApi.Controllers
 {
+    /// <summary>Class <c>AuthenticationController</c> API controller for commands related to Authentication e.g.null Logging in and out</summary>
     [Authorize]
     [ApiController]
     [Route("[controller]")]

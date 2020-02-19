@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 
 namespace CraftIt.Api.Controllers
 {
+    /// <summary>Class <c>ProductsController</c> API controller for commands related to Products</summary>
     [Route("api/[controller]")]
     [Authorize]
     [ApiController]
@@ -25,7 +26,6 @@ namespace CraftIt.Api.Controllers
             _userService = userService;
         }
 
-        // GET api/values
         [HttpGet]
         public ActionResult Get()
         {
@@ -45,7 +45,6 @@ namespace CraftIt.Api.Controllers
             return Ok(productsDto);
         }
 
-        // GET api/values/5
         [HttpGet("{id}")]
         public ActionResult Get(int id)
         {

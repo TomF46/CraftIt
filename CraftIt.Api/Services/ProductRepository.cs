@@ -10,6 +10,7 @@ using CraftIt.Api.Helpers;
 
 namespace CraftIt.Api.Services
 {
+    /// <summary>Class <c>ProductRepository</c>Class used to implement methods in the IProductRepository interface</summary>    
     public class ProductRepository : IProductRepository
     {
 

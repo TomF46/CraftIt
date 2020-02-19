@@ -14,6 +14,7 @@ using CraftIt.Api.Services;
 
 namespace WebApi.Controllers
 {
+    /// <summary>Class <c>UserController</c> API controller for commands related to user management</summary>
     [Authorize]
     [ApiController]
     [Route("[controller]")]

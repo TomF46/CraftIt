@@ -3,6 +3,7 @@ using CraftIt.Api.Models;
 
 namespace WebApi.Helpers
 {
+    /// <summary>Class <c>AutoMapperProfile</c>Class required by Automapper used to map a class and domain transfer object.</summary>
     public class AutoMapperProfile : Profile
     {
         public AutoMapperProfile()

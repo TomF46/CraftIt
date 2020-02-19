@@ -6,6 +6,7 @@ using CraftIt.Api.Models;
 
 namespace CraftIt.Api.Services
 {
+    /// <summary>Class <c>UserService</c>Class used to implement methods in the IUserService interface</summary>
     public class UserService : IUserService
     {
         private CraftItContext _context;
